@@ -1,0 +1,14 @@
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+.footer-align-bottom {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
