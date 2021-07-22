@@ -33,7 +33,7 @@
     <header>
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Youtube</a>
+          <a class="navbar-brand" href="#">Shoplane</a>
           <button
             class="navbar-toggler"
             type="button"
@@ -51,7 +51,7 @@
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Contact</a>
+                <a class="nav-link" href="/contact.html">Contact</a>
               </li>
             </ul>
             <div class="d-flex">
@@ -72,62 +72,16 @@
     </header>
 
     <!--Content-->
+
     <div class="wrapper"></div>
+    <div class="products d-flex m-3 flex-wrap"></div>
 
     <!--Footer-->
-    <footer class="footer mt-auto py-3 bg-light footer-align-bottom">
+    <footer class="footer mt-auto py-3 bg-light">
       <div class="container">
         <span class="text-muted">Place sticky footer content here.</span>
       </div>
     </footer>
-    <script>
-      const wrapper = document.querySelector(".wrapper");
-      const url =
-        "https://api.themoviedb.org/3/search/movie?api_key=abdca3eea1b7fb0c1f10423e2fc33135&query=";
-      const onSubmit = () => {
-        const searchValue = document.querySelector("#searchBox").value;
-        fetch(url + searchValue)
-          .then((res) => res.json())
-          .then((res) => {
-            const { results } = res;
-            wrapper.innerHTML = "";
-            results.map((item) => {
-              const { title, vote_average } = item;
-              //Containers
-              let container = document.createElement("div");
-              container.style.border = "1px solid";
-              container.style.margin = "20px";
-              container.style.padding = "20px";
-              //Title
-              let containerTitle = document.createElement("h1");
-              containerTitle.textContent = title;
-              container.appendChild(containerTitle);
-              //Average
-              let containerVote = document.createElement("p");
-              containerVote.textContent = vote_average;
-              container.appendChild(containerVote);
-              //Append ALL Child
-              wrapper.appendChild(container);
-            });
-          });
-      };
-
-      // const lists = `
-      // <h1 class="title" id="first-title">H1 Title</h1>
-      // <h2 class="title" id="second-title">Title H2</h2>
-      // <h3 class="title" id="third-title">Title H3</h3>
-      // <h4 class="title" id="four-title">Title h4</h4>`;
-      // const listEmbed = document.querySelector(".wrapper");
-      // listEmbed.innerHTML = lists;
-      // let title = null;
-      // for (let i = 0; i < 4; i++) {
-      //   title = document.createElement("h1");
-      //   title.className = "title";
-      //   title.textContent = `H1 Tag with index ${i}`;
-      //   title.style.color = i % 2 === 0 ? "red" : "green";
-      //   console.log("Title", i, title);
-      //   document.body.appendChild(title);
-      // }
-    </script>
+    <script src="./index.js"></script>
   </body>
 </html>
