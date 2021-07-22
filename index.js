@@ -30,6 +30,12 @@ fetch(productUrl)
       cardDesc.className = "card-text";
       cardBody.appendChild(cardDesc);
 
+      const navCard = document.createElement("a");
+      navCard.href = `product.html?productId=${id}`;
+      navCard.className = "btn btn-primary";
+      navCard.textContent = "More Details";
+      cardBody.appendChild(navCard);
+
       card.appendChild(cardBody);
 
       products.appendChild(card);
