@@ -1,14 +1,7 @@
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: "Gowun Dodum", sans-serif;
 }
 
-.footer-align-bottom {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-}
-
-.wrapper {
-  display: flex;
-  flex-wrap: wrap;
+.cardWidth {
+  width: 15%;
 }

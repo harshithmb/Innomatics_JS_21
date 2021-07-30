@@ -1,43 +1,78 @@
-const productUrl = "https://5d76bf96515d1a0014085cf9.mockapi.io/product";
-const products = document.querySelector(".products");
-fetch(productUrl)
-  .then((res) => res.json())
-  .then((res) => {
-    res.forEach((item) => {
-      const { name, preview, description, price, id } = item;
-      const card = document.createElement("div");
-      card.className = "card";
-      card.style.width = "18rem";
+const API_URL = "https://5d76bf96515d1a0014085cf9.mockapi.io/product";
 
-      //Inside card image
+const cartCount = document.querySelector("#cartCount");
+const clothing = document.querySelector("#clothing");
+const accessories = document.querySelector("#accessories");
+const localCart = JSON.parse(localStorage.getItem("cart"));
+const cartCountFromLocalStorage = localCart.length;
+cartCount.innerHTML = cartCountFromLocalStorage;
+
+let cart = [...localCart];
+$.ajax({
+  url: API_URL,
+  type: "GET",
+  success: function (res) {
+    res.slice(0, 5).map((item) => {
+      const { name, description, preview } = item;
+      const card = document.createElement("div");
+      card.classList = "card m-4 cardWidth";
+
       const cardImg = document.createElement("img");
-      cardImg.className = "card-img-top";
       cardImg.src = preview;
-      cardImg.alt = name;
+      cardImg.classList = "card-img-top";
       card.appendChild(cardImg);
 
-      //Card body
       const cardBody = document.createElement("div");
-      cardBody.className = "card-body";
+      cardBody.classList = "card-body";
 
-      const cardTitle = document.createElement("h5");
+      const cardTitle = document.createElement("h1");
       cardTitle.textContent = name;
-      cardTitle.className = "card-title";
       cardBody.appendChild(cardTitle);
-
       const cardDesc = document.createElement("p");
       cardDesc.textContent = description;
-      cardDesc.className = "card-text";
       cardBody.appendChild(cardDesc);
 
-      const navCard = document.createElement("a");
-      navCard.href = `product.html?productId=${id}`;
-      navCard.className = "btn btn-primary";
-      navCard.textContent = "More Details";
-      cardBody.appendChild(navCard);
+      const cardBtn = document.createElement("button");
+      cardBtn.classList = "btn btn-success";
+      cardBtn.textContent = "Add to cart";
+      cardBtn.onclick = () => {
+        cart = [...cart, item];
+        cartCount.textContent = cart.length;
+        window.localStorage.setItem("cart", JSON.stringify(cart));
+      };
 
+      cardBody.appendChild(cardBtn);
       card.appendChild(cardBody);
 
-      products.appendChild(card);
+      clothing.appendChild(card);
     });
-  });
+    res.slice(5).map(({ name, description, preview }) => {
+      const card = document.createElement("div");
+      card.classList = "card m-4 cardWidth";
+
+      const cardImg = document.createElement("img");
+      cardImg.src = preview;
+      cardImg.classList = "card-img-top";
+      card.appendChild(cardImg);
+
+      const cardBody = document.createElement("div");
+      cardBody.classList = "card-body";
+
+      const cardTitle = document.createElement("h1");
+      cardTitle.textContent = name;
+      cardBody.appendChild(cardTitle);
+      const cardDesc = document.createElement("p");
+      cardDesc.textContent = description;
+      cardBody.appendChild(cardDesc);
+
+      const cardBtn = document.createElement("button");
+      cardBtn.classList = "btn btn-success";
+      cardBtn.textContent = "Add to cart";
+
+      cardBody.appendChild(cardBtn);
+      card.appendChild(cardBody);
+
+      accessories.appendChild(card);
+    });
+  },
+});
